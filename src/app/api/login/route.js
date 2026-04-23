@@ -1,20 +1,6 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-const STUDENTS_FILE = path.join(process.cwd(), 'data', 'students.json');
-
-function getStudents() {
-    try {
-        if (!fs.existsSync(STUDENTS_FILE)) {
-            return [];
-        }
-        const data = fs.readFileSync(STUDENTS_FILE, 'utf-8');
-        return JSON.parse(data);
-    } catch {
-        return [];
-    }
-}
+import { db } from '../../../lib/firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 export async function POST(request) {
     try {
@@ -25,15 +11,37 @@ export async function POST(request) {
             return NextResponse.json({ error: 'Please enter your email or phone number.' }, { status: 400 });
         }
 
-        const students = getStudents();
         const normalizedCredential = credential.trim().toLowerCase().replace(/\s+/g, '');
+        const studentsRef = collection(db, 'students');
 
-        // Search by email or phone
-        const student = students.find(s => {
-            const emailMatch = s.email.toLowerCase() === normalizedCredential;
-            const phoneMatch = s.phone.replace(/\s+/g, '').replace(/^\+91/, '') === normalizedCredential.replace(/^\+91/, '');
-            return emailMatch || phoneMatch;
-        });
+        // Try to find by email first
+        const emailQuery = query(studentsRef, where('email', '==', normalizedCredential));
+        const emailSnapshot = await getDocs(emailQuery);
+
+        let student = null;
+
+        if (!emailSnapshot.empty) {
+            const doc = emailSnapshot.docs[0];
+            student = { id: doc.id, ...doc.data() };
+        } else {
+            // Try to find by phone
+            const phoneToSearch = normalizedCredential.replace(/^\+91/, '');
+            const phoneQuery = query(studentsRef, where('phone', '==', phoneToSearch));
+            const phoneSnapshot = await getDocs(phoneQuery);
+
+            // Also try with +91 prefix
+            if (phoneSnapshot.empty) {
+                const phoneQuery2 = query(studentsRef, where('phone', '==', '+91' + phoneToSearch));
+                const phoneSnapshot2 = await getDocs(phoneQuery2);
+                if (!phoneSnapshot2.empty) {
+                    const doc = phoneSnapshot2.docs[0];
+                    student = { id: doc.id, ...doc.data() };
+                }
+            } else {
+                const doc = phoneSnapshot.docs[0];
+                student = { id: doc.id, ...doc.data() };
+            }
+        }
 
         if (!student) {
             return NextResponse.json({
