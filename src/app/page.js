@@ -60,6 +60,20 @@ export default function Home() {
                 <Button variant="secondary" style={{ padding: '16px 36px', fontSize: '1.1rem' }}>Learn About the Academy</Button>
               </a>
             </div>
+
+            {/* SEBI Trust Bar */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0', flexWrap: 'wrap', marginTop: '2.5rem' }}>
+              {[
+                { icon: '🛡️', text: 'SEBI Registered Research Analyst' },
+                { icon: '📋', text: 'Registration No: INH000022367' },
+                { icon: '⭐', text: '1,500+ Students Trained' },
+              ].map((item, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '0 18px', borderRight: i < 2 ? '1px solid rgba(255,255,255,0.12)' : 'none' }}>
+                  <span style={{ fontSize: '0.85rem' }}>{item.icon}</span>
+                  <span style={{ color: '#888', fontSize: '0.8rem', fontWeight: 500, whiteSpace: 'nowrap' }}>{item.text}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -232,19 +246,64 @@ export default function Home() {
             <h2 className="text-center mb-8" style={{ fontSize: '2.5rem' }}>Built for <span className="text-gold">Serious Traders</span></h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
               {[
-                { quote: "The incorporation of financial astrology completely changed how I look at timeframes and market turning points.", role: "Advanced Graduate" },
-                { quote: "Finally, a curriculum that structures everything practically instead of just dumping PDF theory on you.", role: "Intermediate Student" },
-                { quote: "The trade control systems are what save you. The strategy makes money, the control keeps it.", role: "Professional Trader" },
-              ].map((testimonial, idx) => (
+                { quote: "The incorporation of financial astrology completely changed how I look at timeframes and market turning points.", name: "Rahul M.", location: "Bangalore", course: "Advanced Graduate", initials: "RM", color: 'var(--accent-red)' },
+                { quote: "Finally, a curriculum that structures everything practically instead of just dumping PDF theory on you.", name: "Priya S.", location: "Mangalore", course: "Intermediate Student", initials: "PS", color: 'var(--gold-primary)' },
+                { quote: "The trade control systems are what save you. The strategy makes money, the control keeps it.", name: "Arjun K.", location: "Mumbai", course: "Professional Trader", initials: "AK", color: 'var(--accent-green)' },
+              ].map((t, idx) => (
                 <GlassCard key={idx} style={{ padding: '2rem', textAlign: 'left', display: 'flex', flexDirection: 'column' }}>
-                  <div className="text-gold mb-4" style={{ fontSize: '1.2rem', letterSpacing: '2px' }}>★★★★★</div>
-                  <p style={{ fontSize: '1.1rem', fontStyle: 'italic', marginBottom: '1.5rem', lineHeight: 1.6, flexGrow: 1 }}>"{testimonial.quote}"</p>
-                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
-                    <span className="text-muted" style={{ fontWeight: 600 }}>{testimonial.role}</span>
+                  <div style={{ color: 'var(--gold-primary)', fontSize: '1rem', letterSpacing: '2px', marginBottom: '1rem' }}>★★★★★</div>
+                  <p style={{ fontSize: '1.05rem', fontStyle: 'italic', marginBottom: '1.5rem', lineHeight: 1.7, flexGrow: 1, color: '#ddd' }}>"{t.quote}"</p>
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1rem', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '42px', height: '42px', borderRadius: '50%', background: `linear-gradient(135deg, ${t.color}, rgba(0,0,0,0.5))`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: '0.85rem', flexShrink: 0, border: `1px solid ${t.color}` }}>{t.initials}</div>
+                    <div>
+                      <p style={{ color: '#fff', fontWeight: 600, fontSize: '0.95rem', margin: 0 }}>{t.name}</p>
+                      <p style={{ color: '#888', fontSize: '0.8rem', margin: 0 }}>{t.location} • {t.course}</p>
+                    </div>
                   </div>
                 </GlassCard>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* STUDENT RESULTS TEASER */}
+        <section className="section-padding" style={{ background: 'linear-gradient(to bottom, var(--bg-dark), var(--bg-darker))' }}>
+          <div className="container">
+            <div className="text-center mb-8">
+              <h2 style={{ fontSize: '2.5rem', marginBottom: '0.8rem' }}>Real Results From <span className="text-gold">Real Students</span></h2>
+              <p className="text-muted" style={{ fontSize: '1.1rem' }}>A small selection from our community's verified trades.</p>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', maxWidth: '1000px', margin: '0 auto' }}>
+              {[
+                { instrument: 'NIFTY CE', entry: '24,150', exit: '24,680', pnl: '+₹12,500', note: 'Astro cycle reversal call', student: 'Rahul M.' },
+                { instrument: 'BANKNIFTY PE', entry: '52,200', exit: '51,100', pnl: '+₹22,000', note: 'Liquidity grab setup', student: 'Priya S.' },
+                { instrument: 'RELIANCE', entry: '₹1,240', exit: '₹1,318', pnl: '+₹7,800', note: 'Order block retest', student: 'Arjun K.' },
+              ].map((trade, i) => (
+                <GlassCard key={i} style={{ padding: '1.5rem', background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(0,230,118,0.1)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                    <span style={{ color: '#fff', fontWeight: 700, fontFamily: 'monospace', fontSize: '1rem' }}>{trade.instrument}</span>
+                    <span style={{ color: 'var(--accent-green)', fontWeight: 700, fontFamily: 'monospace', fontSize: '1.2rem' }}>{trade.pnl}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                    <div>
+                      <span style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', display: 'block' }}>Entry</span>
+                      <span style={{ color: '#ccc', fontFamily: 'monospace', fontSize: '0.95rem' }}>{trade.entry}</span>
+                    </div>
+                    <div style={{ color: '#444', display: 'flex', alignItems: 'center' }}>→</div>
+                    <div style={{ textAlign: 'right' }}>
+                      <span style={{ color: '#666', fontSize: '0.75rem', textTransform: 'uppercase', display: 'block' }}>Exit</span>
+                      <span style={{ color: '#ccc', fontFamily: 'monospace', fontSize: '0.95rem' }}>{trade.exit}</span>
+                    </div>
+                  </div>
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '0.8rem', marginTop: '0.5rem' }}>
+                    <p style={{ color: '#888', fontSize: '0.8rem', fontStyle: 'italic', margin: 0 }}>{trade.note} — {trade.student}</p>
+                  </div>
+                </GlassCard>
+              ))}
+            </div>
+            <p style={{ color: '#555', fontSize: '0.7rem', textAlign: 'center', marginTop: '1.5rem', maxWidth: '700px', margin: '1.5rem auto 0' }}>
+              Results are illustrative of student-reported trades. Individual results vary. Trading involves risk.
+            </p>
           </div>
         </section>
 

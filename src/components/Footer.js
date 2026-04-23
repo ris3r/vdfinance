@@ -27,15 +27,18 @@ export default function Footer() {
                     <div className="footer-contact">
                         <h4 className="text-white mb-4">Legal</h4>
                         <ul>
-                            <li><Link href="#" className="hover-gold text-muted">Disclaimer</Link></li>
-                            <li><Link href="#" className="hover-gold text-muted">Terms of Service</Link></li>
-                            <li><Link href="#" className="hover-gold text-muted">Privacy Policy</Link></li>
+                            <li><Link href="/disclaimer" className="hover-gold text-muted">Disclaimer</Link></li>
+                            <li><Link href="/terms" className="hover-gold text-muted">Terms of Service</Link></li>
+                            <li><Link href="/privacy" className="hover-gold text-muted">Privacy Policy</Link></li>
                         </ul>
                     </div>
                 </div>
                 <div className="footer-bottom">
                     <p className="text-muted text-center" style={{ fontSize: '0.9rem' }}>
                         &copy; {new Date().getFullYear()} VD Financepedia Trading Academy. All Rights Reserved.
+                    </p>
+                    <p className="text-muted text-center" style={{ fontSize: '0.75rem', marginTop: '0.5rem', color: '#555' }}>
+                        Vinith D'Costa &amp; Associates | SEBI Registered Research Analyst | Registration No: INH000022367 | This platform is for educational purposes only.
                     </p>
                 </div>
             </div>

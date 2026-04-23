@@ -20,7 +20,10 @@ export default function Navbar() {
                     <li><Link href="/about" className="hover-gold text-white font-medium">The Firm</Link></li>
                     <li><Link href="/contact" className="hover-gold text-white font-medium">Contact</Link></li>
                 </ul>
-                <div className="navbar-cta mt-4 md:mt-0">
+                <div className="navbar-cta mt-4 md:mt-0" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <Link href="/login">
+                        <Button variant="secondary" style={{ padding: '10px 18px', fontSize: '14px' }}>Login</Button>
+                    </Link>
                     <Link href="/apply">
                         <Button variant="primary">Enroll Now</Button>
                     </Link>

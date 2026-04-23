@@ -41,13 +41,18 @@ export default function Apply() {
                 body: JSON.stringify(formData)
             });
 
+            const data = await res.json();
+
             if (res.ok) {
                 setStatus('success');
-                setMessage('Your application has been received. Our advisory team will contact you shortly.');
+                setMessage('Your application has been received. Our advisory team will contact you shortly. You can now login to your Student Portal.');
                 setFormData({ name: '', email: '', phone: '', course: 'Beginner (Level 1)' });
+            } else if (res.status === 409) {
+                setStatus('error');
+                setMessage('You are already enrolled! Please login to your Student Portal instead.');
             } else {
                 setStatus('error');
-                setMessage('Something went wrong. Please try again or contact support.');
+                setMessage(data.error || 'Something went wrong. Please try again or contact support.');
             }
         } catch (error) {
             setStatus('error');
@@ -100,7 +105,7 @@ export default function Apply() {
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 placeholder="e.g., John Doe"
-                                                style={{ width: '100%', padding: '16px', background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none', transition: 'border-color 0.3s' }}
+                                                style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none', transition: 'border-color 0.3s' }}
                                             />
                                         </div>
                                         <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
@@ -112,7 +117,7 @@ export default function Apply() {
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 placeholder="john@example.com"
-                                                style={{ width: '100%', padding: '16px', background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none', transition: 'border-color 0.3s' }}
+                                                style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none', transition: 'border-color 0.3s' }}
                                             />
                                         </div>
                                     </div>
@@ -126,7 +131,7 @@ export default function Apply() {
                                             value={formData.phone}
                                             onChange={handleChange}
                                             placeholder="+91 98765 43210"
-                                            style={{ width: '100%', padding: '16px', background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none', transition: 'border-color 0.3s' }}
+                                            style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none', transition: 'border-color 0.3s' }}
                                         />
                                     </div>
 
@@ -136,7 +141,7 @@ export default function Apply() {
                                             name="course"
                                             value={formData.course}
                                             onChange={handleChange}
-                                            style={{ width: '100%', padding: '16px', background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none', appearance: 'none', cursor: 'pointer' }}>
+                                            style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', color: '#fff', fontSize: '1rem', outline: 'none', appearance: 'none', cursor: 'pointer' }}>
                                             <option value="Beginner (Level 1)">Beginner Course (Level 1) - ₹13,999</option>
                                             <option value="Intermediate (Level 2)">Intermediate Course (Level 2) - ₹44,999</option>
                                             <option value="Advanced (Level 3)">Advanced Course (Level 3) - ₹71,999</option>

@@ -4,6 +4,8 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Button from '../../components/Button';
 import GlassCard from '../../components/GlassCard';
+import RazorpayButton from '../../components/RazorpayButton';
+import WebinarCountdown from '../../components/WebinarCountdown';
 
 export const metadata = {
     title: "Masterclass: The Hidden Mechanics of Profitable Trading | VD Financepedia",
@@ -42,41 +44,59 @@ export default function WebinarLanding() {
                     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(ellipse at center, rgba(255,215,0,0.08) 0%, var(--bg-darker) 70%)', zIndex: -3 }}></div>
                     <div style={{ position: 'absolute', bottom: 0, left: '50%', transform: 'translateX(-50%)', width: '100vw', height: '50vh', background: 'radial-gradient(ellipse at bottom, rgba(0, 230, 118, 0.05) 0%, transparent 60%)', zIndex: -3 }}></div>
 
-                    {/* Animated "Lifeline" Chart Vector (Jackpot Breakout) */}
-                    <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', height: '70%', zIndex: -1, pointerEvents: 'none', display: 'flex', alignItems: 'flex-end' }}>
-                        <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 1000 400" style={{ overflow: 'visible' }}>
+                    {/* Premium Institutional Candlestick Matrix Background */}
+                    <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', height: '100%', zIndex: -2, pointerEvents: 'none', overflow: 'hidden', opacity: 0.85 }}>
+                        {/* Soft subtle grid */}
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)', backgroundSize: '120px 120px', zIndex: 1, maskImage: 'radial-gradient(ellipse at center, transparent 20%, black 100%)', WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 20%, black 100%)' }}></div>
+                        
+                        <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 1000 600" style={{ filter: 'blur(3px)' }}>
                             <defs>
-                                <linearGradient id="lifeline-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" stopColor="var(--accent-green)" stopOpacity="0.4" />
-                                    <stop offset="100%" stopColor="transparent" stopOpacity="0" />
+                                <linearGradient id="bull-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.7" />
+                                    <stop offset="100%" stopColor="#FFD700" stopOpacity="0.2" />
                                 </linearGradient>
-                                <linearGradient id="lifeline-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="var(--gold-primary)" />
-                                    <stop offset="100%" stopColor="var(--accent-green)" />
+                                <linearGradient id="bear-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stopColor="#8A0303" stopOpacity="0.5" />
+                                    <stop offset="100%" stopColor="#4A0000" stopOpacity="0.1" />
+                                </linearGradient>
+                                <linearGradient id="spline-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="transparent" />
+                                    <stop offset="40%" stopColor="#D4AF37" stopOpacity="0.6" />
+                                    <stop offset="80%" stopColor="#FFF" stopOpacity="0.9" />
+                                    <stop offset="100%" stopColor="transparent" />
                                 </linearGradient>
                             </defs>
-                            {/* Fill */}
-                            <path d="M0 380 L 100 370 L 250 380 L 300 350 L 400 360 L 500 250 L 550 280 L 600 200 L 700 220 L 850 50 L 1000 20 L 1000 400 L 0 400 Z" fill="url(#lifeline-grad)" style={{ animation: 'pulse-fill 4s ease-in-out infinite' }} />
-                            {/* Animated Stroke */}
-                            <path d="M0 380 L 100 370 L 250 380 L 300 350 L 400 360 L 500 250 L 550 280 L 600 200 L 700 220 L 850 50 L 1000 20" fill="none" stroke="url(#lifeline-stroke)" strokeWidth="4" filter="drop-shadow(0 0 12px var(--accent-green))" strokeDasharray="2000" strokeDashoffset="2000" style={{ animation: 'draw-line 3s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.5s' }} />
-                            {/* Breakout Data Points */}
-                            <circle cx="850" cy="50" r="6" fill="#fff" filter="drop-shadow(0 0 10px #fff)" style={{ animation: 'pulse-glow-elegant 2s infinite' }} />
-                            <circle cx="1000" cy="20" r="8" fill="var(--accent-green)" filter="drop-shadow(0 0 15px var(--accent-green))" style={{ animation: 'pulse-glow-elegant 1.5s infinite' }} />
+
+                            {/* Background Floating Candlesticks (Muted Gold = Bull, Sheer Crimson = Bear) */}
+                            {[
+                                {x: 50, wy1: 200, wy2: 350, by: 220, bh: 100, type: 'bull'},
+                                {x: 120, wy1: 150, wy2: 240, by: 160, bh: 60, type: 'bull'},
+                                {x: 190, wy1: 140, wy2: 300, by: 160, bh: 120, type: 'bear'},
+                                {x: 260, wy1: 280, wy2: 450, by: 300, bh: 110, type: 'bear'},
+                                {x: 330, wy1: 400, wy2: 520, by: 420, bh: 70, type: 'bull'},
+                                {x: 400, wy1: 350, wy2: 460, by: 370, bh: 50, type: 'bull'},
+                                {x: 470, wy1: 250, wy2: 380, by: 270, bh: 90, type: 'bull'},
+                                {x: 540, wy1: 230, wy2: 350, by: 250, bh: 60, type: 'bear'},
+                                {x: 610, wy1: 180, wy2: 280, by: 200, bh: 70, type: 'bull'},
+                                {x: 680, wy1: 100, wy2: 220, by: 130, bh: 60, type: 'bull'},
+                                {x: 750, wy1: 80, wy2: 200, by: 100, bh: 90, type: 'bear'},
+                                {x: 820, wy1: 150, wy2: 320, by: 190, bh: 100, type: 'bear'},
+                                {x: 890, wy1: 280, wy2: 400, by: 300, bh: 80, type: 'bear'},
+                                {x: 960, wy1: 350, wy2: 480, by: 380, bh: 70, type: 'bull'}
+                            ].map((c, i) => (
+                                <g key={i} className="animate-float" style={{ animationDelay: `${i * 0.4}s` }}>
+                                    <line x1={c.x} y1={c.wy1} x2={c.x} y2={c.wy2} stroke={c.type === 'bull' ? "rgba(212,175,55,0.5)" : "rgba(138,3,3,0.4)"} strokeWidth="3" />
+                                    <rect x={c.x - 10} y={c.by} width="20" height={c.bh} fill={c.type === 'bull' ? "url(#bull-grad)" : "url(#bear-grad)"} rx="2" />
+                                </g>
+                            ))}
+                            
+                            {/* Premium Data Spline Curve traversing the matrix */}
+                            <path d="M-50 450 C 150 450, 200 250, 400 350 S 650 150, 800 250 S 950 100, 1050 150" fill="none" stroke="url(#spline-stroke)" strokeWidth="3" filter="drop-shadow(0 0 6px rgba(255,215,0,0.4))" style={{ animation: 'draw-line 3s ease-out forwards 0.5s' }} strokeDasharray="1500" strokeDashoffset="1500" />
                         </svg>
                     </div>
 
-                    {/* Floating Wealth/Lifeline Elements */}
-                    <div className="animate-float" style={{ position: 'absolute', top: '25%', left: '10%', padding: '10px 15px', background: 'rgba(0, 230, 118, 0.1)', border: '1px solid rgba(0, 230, 118, 0.3)', borderRadius: '8px', backdropFilter: 'blur(5px)', color: '#fff', fontSize: '1.2rem', fontWeight: 'bold', zIndex: 0, boxShadow: '0 0 20px rgba(0,230,118,0.2)' }}>
-                        <span style={{ color: 'var(--accent-green)' }}>+₹1,24,500</span> <br /><span style={{ fontSize: '0.8rem', fontWeight: 'normal', color: '#aaa' }}>1:4 Risk/Reward Secured</span>
-                    </div>
-
-                    <div className="animate-float" style={{ animationDelay: '1.5s', position: 'absolute', bottom: '35%', right: '10%', padding: '10px 15px', background: 'rgba(255, 215, 0, 0.1)', border: '1px solid rgba(255, 215, 0, 0.3)', borderRadius: '8px', backdropFilter: 'blur(5px)', color: '#fff', fontSize: '1.2rem', fontWeight: 'bold', zIndex: 0, boxShadow: '0 0 20px rgba(255,215,0,0.2)' }}>
-                        <span style={{ color: 'var(--gold-primary)' }}>Breakout Confirmed</span><br /><span style={{ fontSize: '0.8rem', fontWeight: 'normal', color: '#aaa' }}>Institutional Volume ▲</span>
-                    </div>
-
-                    {/* Massive Floating Energy Orbs */}
-                    <div style={{ position: 'absolute', top: '10%', right: '20%', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: -2, animation: 'pulse-glow-elegant 5s infinite alternate' }}></div>
-                    <div style={{ position: 'absolute', bottom: '10%', left: '20%', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,230,118,0.08) 0%, transparent 70%)', filter: 'blur(80px)', zIndex: -2, animation: 'pulse-glow-elegant 7s infinite alternate-reverse' }}></div>
+                    {/* Vignette Overlay for focus completely blackening the edges */}
+                    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle, transparent 30%, #050505 90%)', zIndex: -1, pointerEvents: 'none' }}></div>
 
                     {/* Core Content Container */}
                     <div className="container text-center animate-fade-in" style={{ zIndex: 1, maxWidth: '900px', position: 'relative', marginTop: '60px' }}>
@@ -106,11 +126,9 @@ export default function WebinarLanding() {
                         </div>
 
                         <div className="flex-center gap-6 mb-8" style={{ flexWrap: 'wrap', flexDirection: 'column' }}>
-                            <Link href="/apply?course=webinar">
-                                <Button variant="primary" style={{ padding: '22px 60px', fontSize: '1.5rem', background: 'var(--gold-primary)', color: '#000', boxShadow: '0 0 40px rgba(255,215,0,0.4), inset 0 0 15px rgba(255,255,255,0.6)', transition: 'all 0.3s ease', cursor: 'pointer', borderRadius: '12px', border: 'none', fontWeight: 'bold' }}>
-                                    Unlock The Blueprint For ₹199
-                                </Button>
-                            </Link>
+                            <RazorpayButton variant="primary" style={{ padding: '22px 60px', fontSize: '1.5rem', background: 'var(--gold-primary)', color: '#000', boxShadow: '0 0 40px rgba(255,215,0,0.4), inset 0 0 15px rgba(255,255,255,0.6)', transition: 'all 0.3s ease', cursor: 'pointer', borderRadius: '12px', border: 'none', fontWeight: 'bold' }}>
+                                Unlock The Blueprint For ₹199
+                            </RazorpayButton>
 
                             <p style={{ color: 'var(--accent-red)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(255,23,68,0.1)', padding: '8px 16px', borderRadius: '20px', border: '1px solid rgba(255,23,68,0.3)' }}>
                                 <span className="pulse-dot" style={{ display: 'inline-block', width: '10px', height: '10px', background: 'var(--accent-red)', borderRadius: '50%', animation: 'pulse-glow-elegant 2s infinite' }}></span>
@@ -291,43 +309,13 @@ export default function WebinarLanding() {
                                     </div>
                                 </div>
 
-                                {/* Aggressive Urgency Bar */}
-                                <div className="urgency-bar mb-6 text-left" style={{ margin: '0 auto 2rem', maxWidth: '100%' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', alignItems: 'center' }}>
-                                        <span style={{ color: '#fff', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                            <span className="pulse-dot" style={{ display: 'inline-block', width: '8px', height: '8px', background: 'var(--accent-red)', borderRadius: '50%', animation: 'pulse-glow-elegant 1s infinite' }}></span>
-                                            WARNING: Capacity Reached
-                                        </span>
-                                        <span style={{ color: 'var(--accent-red)', fontWeight: 'bold', fontSize: '1.1rem' }}>92% Reserved</span>
-                                    </div>
-                                    <div style={{ width: '100%', height: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-                                        <div style={{ width: '92%', height: '100%', background: 'linear-gradient(90deg, #ff8a65, var(--accent-red))', borderRadius: '10px', boxShadow: '0 0 10px var(--accent-red)' }}></div>
-                                    </div>
-                                </div>
+                                <WebinarCountdown />
 
-                                {/* Simulated Countdown Timer */}
-                                <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginBottom: '3rem' }}>
-                                    <div style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,23,68,0.3)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px' }}>
-                                        <span style={{ display: 'block', fontSize: '1.8rem', fontWeight: 'bold', color: '#fff', lineHeight: 1 }}>00</span>
-                                        <span style={{ fontSize: '0.7rem', color: '#888', textTransform: 'uppercase' }}>Hours</span>
-                                    </div>
-                                    <span style={{ fontSize: '2rem', color: 'var(--accent-red)', fontWeight: 'bold', lineHeight: '45px' }}>:</span>
-                                    <div style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,23,68,0.3)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px' }}>
-                                        <span style={{ display: 'block', fontSize: '1.8rem', fontWeight: 'bold', color: '#fff', lineHeight: 1 }}>14</span>
-                                        <span style={{ fontSize: '0.7rem', color: '#888', textTransform: 'uppercase' }}>Mins</span>
-                                    </div>
-                                    <span style={{ fontSize: '2rem', color: 'var(--accent-red)', fontWeight: 'bold', lineHeight: '45px' }}>:</span>
-                                    <div style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,23,68,0.3)', padding: '10px 15px', borderRadius: '8px', minWidth: '70px' }}>
-                                        <span style={{ display: 'block', fontSize: '1.8rem', fontWeight: 'bold', color: '#fff', lineHeight: 1 }}>38</span>
-                                        <span style={{ fontSize: '0.7rem', color: '#888', textTransform: 'uppercase' }}>Secs</span>
-                                    </div>
-                                </div>
-
-                                <Link href="/apply?course=webinar" style={{ display: 'block' }}>
-                                    <Button variant="primary" style={{ width: '100%', padding: '25px', fontSize: '1.6rem', background: 'linear-gradient(to right, var(--gold-primary), var(--gold-light), var(--gold-primary))', backgroundSize: '200% auto', color: '#000', border: 'none', animation: 'pulse-button 2s infinite, stripe-shine 3s linear infinite', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '1px', borderRadius: '12px' }}>
+                                <div id="webinar-main-cta" style={{ display: 'block', width: '100%' }}>
+                                    <RazorpayButton variant="primary" style={{ width: '100%', padding: '25px', fontSize: '1.6rem', background: 'linear-gradient(to right, var(--gold-primary), var(--gold-light), var(--gold-primary))', backgroundSize: '200% auto', color: '#000', border: 'none', animation: 'pulse-button 2s infinite, stripe-shine 3s linear infinite', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '1px', borderRadius: '12px' }}>
                                         Get Instant Access for ₹199
-                                    </Button>
-                                </Link>
+                                    </RazorpayButton>
+                                </div>
                                 <p style={{ color: '#888', fontSize: '0.85rem', marginTop: '15px' }}>Secure checkout. Instant delivery to your dashboard.</p>
                             </GlassCard>
                         </div>
@@ -361,11 +349,9 @@ export default function WebinarLanding() {
                         <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', marginBottom: '1.5rem' }}>This Could Be the Moment Your <br /><span className="text-gradient-gold">Trading Journey Changes.</span></h2>
                         <p className="text-muted mb-10" style={{ fontSize: '1.3rem', maxWidth: '700px', margin: '0 auto 3rem' }}>One powerful session. One profound paradigm shift. Stop gambling blindly and start executing with mathematical and universal structure.</p>
 
-                        <Link href="/apply?course=webinar">
-                            <Button variant="primary" style={{ padding: '22px 60px', fontSize: '1.5rem', background: 'transparent', color: 'var(--gold-primary)', border: '2px solid var(--gold-primary)', boxShadow: '0 0 20px rgba(255,215,0,0.2), inset 0 0 10px rgba(255,215,0,0.1)', transition: 'all 0.3s ease', cursor: 'pointer' }}>
-                                Unlock the Blueprint
-                            </Button>
-                        </Link>
+                        <RazorpayButton variant="primary" style={{ padding: '22px 60px', fontSize: '1.5rem', background: 'transparent', color: 'var(--gold-primary)', border: '2px solid var(--gold-primary)', boxShadow: '0 0 20px rgba(255,215,0,0.2), inset 0 0 10px rgba(255,215,0,0.1)', transition: 'all 0.3s ease', cursor: 'pointer' }}>
+                            Unlock the Blueprint
+                        </RazorpayButton>
                     </div>
                 </section>
 
