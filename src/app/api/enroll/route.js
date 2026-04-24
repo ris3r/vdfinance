@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { db } from '../../../lib/firebase';
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
-
+import { sendConfirmationEmail } from '../../../lib/mailer';
 export async function POST(request) {
     try {
         const body = await request.json();
@@ -43,6 +43,15 @@ export async function POST(request) {
 
         const docRef = await addDoc(studentsRef, newStudent);
         console.log('Student enrolled with ID:', docRef.id);
+
+        // Send confirmation email
+        try {
+            await sendConfirmationEmail(email.toLowerCase(), name, course);
+            console.log('Confirmation email sent to:', email);
+        } catch (emailError) {
+            console.error("Failed to send confirmation email:", emailError);
+            // We don't fail the overall request if the email fails to send
+        }
 
         return NextResponse.json({ message: 'Application received! Welcome to VD Financepedia.' }, { status: 200 });
 

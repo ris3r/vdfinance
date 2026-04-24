@@ -91,16 +91,16 @@ export default function Home() {
                 <p className="text-muted mb-6" style={{ fontSize: '1.1rem' }}>
                   We don't just teach trading. We are active market participants. As a SEBI-licensed firm founded by Vinith Oscar D’Costa, our methodologies are forged in the real markets.
                 </p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', textAlign: 'center' }}>
-                  <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', textAlign: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+                  <div style={{ flex: '1 1 30%', minWidth: '100px' }}>
                     <h3 className="text-gold" style={{ fontSize: '2rem' }}>1500+</h3>
                     <p className="text-muted" style={{ fontSize: '0.9rem' }}>Students Trained</p>
                   </div>
-                  <div>
+                  <div style={{ flex: '1 1 30%', minWidth: '100px' }}>
                     <h3 className="text-gold" style={{ fontSize: '2rem' }}>10+</h3>
                     <p className="text-muted" style={{ fontSize: '0.9rem' }}>Workshops</p>
                   </div>
-                  <div>
+                  <div style={{ flex: '1 1 30%', minWidth: '100px' }}>
                     <h3 className="text-gold" style={{ fontSize: '2rem' }}>3000+</h3>
                     <p className="text-muted" style={{ fontSize: '0.9rem' }}>Community Members</p>
                   </div>
