@@ -65,7 +65,7 @@ export const sendConfirmationEmail = async (email, name, course) => {
     const mailOptions = {
         from: `"VD Financepedia" <${process.env.SMTP_USER || 'no-reply@vdfinancepedia.com'}>`,
         to: email,
-        bcc: 'vdassociates029@gmail.com',
+        bcc: 'vdfinancepedia@gmail.com',
         subject: `Application Received: ${course} - VD Financepedia`,
         html: htmlTemplate,
     };
