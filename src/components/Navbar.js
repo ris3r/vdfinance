@@ -12,7 +12,7 @@ export default function Navbar() {
             <div className="container flex-between align-center h-full" style={{ flexWrap: 'nowrap' }}>
                 <div className="logo" style={{ flexShrink: 0, width: '150px' }}>
                     <Link href="/">
-                        <div style={{ position: 'relative', width: '100%', height: '60px', display: 'flex', alignItems: 'center' }}>
+                        <div style={{ position: 'relative', width: '100%', height: '60px', display: 'flex', alignItems: 'center', mixBlendMode: 'screen' }}>
                             <Image src="/logo.png" alt="VD Financepedia" fill style={{ objectFit: 'contain' }} priority sizes="150px" unoptimized />
                         </div>
                     </Link>

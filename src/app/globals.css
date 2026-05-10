@@ -469,24 +469,21 @@ button {
     border-top: none;
     border-left: none;
     border-right: none;
+    background: rgba(5, 5, 5, 0.98) !important; /* Solid dark background */
+    backdrop-filter: none !important; /* Prevent text showing through */
   }
 
-  .footer-grid {
-    grid-template-columns: 1fr;
+  .section-padding {
+    padding: 60px 5%; /* Smaller padding on mobile */
   }
 
-  .hide-on-mobile {
-    display: none !important;
+  .split-layout {
+    grid-template-columns: 1fr !important;
+    padding: 2rem !important;
+    gap: 1.5rem !important;
   }
 
-  /* Performance Optimizations for Mobile Lag */
-  .glass-panel {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  /* Disable expensive SVG filters on mobile */
-  path, svg {
-    filter: none !important;
-  }
-}
+  .split-layout .left-content {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1.5rem;
