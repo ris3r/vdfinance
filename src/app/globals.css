@@ -458,7 +458,6 @@ button {
 
 @media (max-width: 768px) {
 
-  .nav-links,
   .nav-actions {
     display: none;
   }
@@ -478,5 +477,16 @@ button {
 
   .hide-on-mobile {
     display: none !important;
+  }
+
+  /* Performance Optimizations for Mobile Lag */
+  .glass-panel {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Disable expensive SVG filters on mobile */
+  path, svg {
+    filter: none !important;
   }
 }

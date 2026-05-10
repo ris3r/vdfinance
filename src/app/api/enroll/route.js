@@ -18,7 +18,9 @@ export async function POST(request) {
         const emailQuery = query(studentsRef, where('email', '==', email.toLowerCase()));
         const emailSnapshot = await getDocs(emailQuery);
 
-        if (!emailSnapshot.empty) {
+        let studentExists = !emailSnapshot.empty;
+
+        if (studentExists && course !== 'Requested Advisor Callback') {
             return NextResponse.json({ error: 'A student with this email is already enrolled.' }, { status: 409 });
         }
 
@@ -27,11 +29,13 @@ export async function POST(request) {
         const phoneQuery = query(studentsRef, where('phone', '==', normalizedPhone));
         const phoneSnapshot = await getDocs(phoneQuery);
 
-        if (!phoneSnapshot.empty) {
+        if (!phoneSnapshot.empty && course !== 'Requested Advisor Callback') {
             return NextResponse.json({ error: 'A student with this phone number is already enrolled.' }, { status: 409 });
         }
 
-        // Save student to Firestore
+        // Save student to Firestore if they don't exist, OR if it's an advisor callback we can still save a new record or skip
+        // Actually, for advisor callback, if they exist we might want to just send the email and skip DB insert, or insert it.
+        // Let's insert it so the admin can see the new request.
         const newStudent = {
             name,
             email: email.toLowerCase(),
@@ -42,7 +46,7 @@ export async function POST(request) {
         };
 
         const docRef = await addDoc(studentsRef, newStudent);
-        console.log('Student enrolled with ID:', docRef.id);
+        console.log('Student enrolled/requested with ID:', docRef.id);
 
         // Send confirmation email
         try {

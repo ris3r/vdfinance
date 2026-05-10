@@ -5,8 +5,8 @@ export const transporter = nodemailer.createTransport({
     port: process.env.SMTP_PORT || 465,
     secure: true,
     auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS, // App Password for Gmail
+        user: process.env.SMTP_USER || '',
+        pass: process.env.SMTP_PASS || '', // App Password for Gmail
     },
 });
 
@@ -57,9 +57,15 @@ export const sendConfirmationEmail = async (email, name, course) => {
       </div>
     `;
 
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        console.error("CRITICAL: SMTP_USER or SMTP_PASS is missing in .env.local! Cannot send email.");
+        throw new Error("SMTP credentials missing");
+    }
+
     const mailOptions = {
-        from: `"VD Financepedia" <${process.env.SMTP_USER}>`,
+        from: `"VD Financepedia" <${process.env.SMTP_USER || 'no-reply@vdfinancepedia.com'}>`,
         to: email,
+        bcc: 'vdassociates029@gmail.com',
         subject: `Application Received: ${course} - VD Financepedia`,
         html: htmlTemplate,
     };

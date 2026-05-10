@@ -3,8 +3,26 @@ import React, { useState } from 'react';
 import Button from './Button';
 
 export default function AdvisorModal({ isOpen, onClose }) {
-    const [formData, setFormData] = useState({ name: '', phone: '' });
+    const [formData, setFormData] = useState({ name: '', phone: '', email: '' });
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
+
+    // Fetch user details if logged in
+    React.useEffect(() => {
+        if (isOpen) {
+            const studentData = localStorage.getItem('vdf_student');
+            if (studentData) {
+                try {
+                    const parsed = JSON.parse(studentData);
+                    setFormData(prev => ({ 
+                        ...prev, 
+                        name: parsed.name || '', 
+                        phone: parsed.phone || '',
+                        email: parsed.email || ''
+                    }));
+                } catch (e) {}
+            }
+        }
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -13,21 +31,19 @@ export default function AdvisorModal({ isOpen, onClose }) {
         setStatus('loading');
 
         try {
-            // Re-using the enroll endpoint or just simulating it if needed.
-            // But since the enroll endpoint expects more fields, we'll send dummy ones for email/course
-            // or we can adjust the endpoint to handle 'Advisor Request'.
             const res = await fetch('/api/enroll', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: formData.name,
                     phone: formData.phone,
-                    email: 'No email provided',
+                    email: formData.email || 'No email provided',
                     course: 'Requested Advisor Callback'
                 })
             });
 
-            if (res.ok) {
+            // Even if we get 409 (already enrolled), we can treat it as success for advisor callback
+            if (res.ok || res.status === 409) {
                 setStatus('success');
             } else {
                 setStatus('error');
@@ -77,6 +93,14 @@ export default function AdvisorModal({ isOpen, onClose }) {
                                 required
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                style={{ width: '100%', padding: '14px', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', borderRadius: '8px', fontSize: '1rem' }}
+                            />
+                            <input
+                                type="email"
+                                placeholder="Email Address"
+                                required
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 style={{ width: '100%', padding: '14px', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', borderRadius: '8px', fontSize: '1rem' }}
                             />
                             <input
